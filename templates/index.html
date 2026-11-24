@@ -15,7 +15,10 @@
   <hr>
   <ul id="item-list">
     {% for i in items %}
-    <li>[{{ i.kind }}] {{ i.name }} - {{ i.place }}</li>
+            <li>[{{ i.kind }}] {{ i.name }} - {{ i.place }}
+            {% if i.claimed %}<b>CLAIMED</b>
+            {% else %}<a href="/claim/{{ i.id }}">Mark claimed</a>{% endif %}
+        </li>
     {% endfor %}
   </ul>
 </body>
