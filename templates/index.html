@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Campus Lost &amp; Found</title></head>
+<body>
+  <h1>Campus Lost &amp; Found Board</h1>
+  <form action="/add" method="post">
+    <input id="name" name="name" placeholder="Item name">
+    <input id="place" name="place" placeholder="Place">
+    <select id="kind" name="kind">
+      <option>Lost</option>
+      <option>Found</option>
+    </select>
+    <button id="add-btn" type="submit">Add</button>
+  </form>
+  <hr>
+  <ul id="item-list">
+    {% for i in items %}
+    <li>[{{ i.kind }}] {{ i.name }} - {{ i.place }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
