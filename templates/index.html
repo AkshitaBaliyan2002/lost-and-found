@@ -22,7 +22,8 @@
             <li>[{{ i.kind }}] {{ i.name }} - {{ i.place }}
             {% if i.claimed %}<b>CLAIMED</b>
             {% else %}<a href="/claim/{{ i.id }}">Mark claimed</a>{% endif %}
-        </li>
+            <a href="/delete/{{ i.id }}">Delete</a>
+          </li>
     {% endfor %}
   </ul>
 </body>
