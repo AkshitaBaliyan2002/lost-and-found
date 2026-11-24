@@ -6,8 +6,11 @@ next_id = 1
 
 
 @app.route("/")
+@app.route("/")
 def index():
-    return render_template("index.html", items=items)
+    q = request.args.get("q", "").strip().lower()
+    shown = [i for i in items if q in i["name"].lower()] if q else items
+    return render_template("index.html", items=shown, q=q)
 
 
 @app.route("/add", methods=["POST"])
