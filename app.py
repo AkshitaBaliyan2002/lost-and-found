@@ -38,6 +38,11 @@ def claim(item_id):
     return redirect("/")
 
 
+@app.route("/delete/<int:item_id>")
+def delete(item_id):
+    items[:] = [i for i in items if i["id"] != item_id]
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(port=5000)
