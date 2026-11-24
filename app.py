@@ -46,6 +46,19 @@ def delete(item_id):
     items[:] = [i for i in items if i["id"] != item_id]
     return redirect("/")
 
+@app.route("/edit/<int:item_id>", methods=["GET", "POST"])
+def edit(item_id):
+    item = next((i for i in items if i["id"] == item_id), None)
+    if item is None:
+        return redirect("/")
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        if name:
+            item["name"] = name
+        item["place"] = request.form.get("place", "").strip()
+        return redirect("/")
+    return render_template("edit.html", item=item)
+
 
 if __name__ == "__main__":
     app.run(port=5000)
