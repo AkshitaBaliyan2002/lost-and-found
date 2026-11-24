@@ -4,6 +4,8 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 import app as app_module
 from app import app
@@ -32,10 +34,11 @@ def driver():
 
 
 def test_report_and_claim_item(server, driver):
+    wait = WebDriverWait(driver, 10)
     driver.get(URL)
     driver.find_element(By.ID, "name").send_keys("Blue Umbrella")
     driver.find_element(By.ID, "place").send_keys("Library")
     driver.find_element(By.ID, "add-btn").click()
-    assert "Blue Umbrella" in driver.find_element(By.ID, "item-list").text
+    wait.until(EC.text_to_be_present_in_element((By.ID, "item-list"), "Blue Umbrella"))
     driver.find_element(By.LINK_TEXT, "Mark claimed").click()
-    assert "CLAIMED" in driver.find_element(By.ID, "item-list").text
+    wait.until(EC.text_to_be_present_in_element((By.ID, "item-list"), "CLAIMED"))
