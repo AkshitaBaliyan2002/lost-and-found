@@ -58,3 +58,8 @@ def test_filter_by_kind():
     r = client.get("/?kind=Lost")
     assert b"Umbrella" in r.data
     assert b"Bottle" not in r.data
+def test_empty_place_has_no_dash():
+    client = app.test_client()
+    r = client.post("/add", data={"name": "Hat", "place": "", "kind": "Lost"},
+                    follow_redirects=True)
+    assert b"Hat - " not in r.data
