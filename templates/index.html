@@ -24,7 +24,7 @@
     </form>
   <ul id="item-list">
     {% for i in items %}
-            <li>[{{ i.kind }}] {{ i.name }} - {{ i.place }}
+            <li>[{{ i.kind }}] {{ i.name }}{% if i.place %} - {{ i.place }}{% endif %}
             {% if i.claimed %}<b>CLAIMED</b>
             {% else %}<a href="/claim/{{ i.id }}">Mark claimed</a>{% endif %}
             <a href="/delete/{{ i.id }}">Delete</a>
