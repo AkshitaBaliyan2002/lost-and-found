@@ -27,6 +27,14 @@ def add():
         next_id += 1
     return redirect("/")
 
+@app.route("/claim/<int:item_id>")
+def claim(item_id):
+    for i in items:
+        if i["id"] == item_id:
+            i["claimed"] = True
+    return redirect("/")
+
+
 
 if __name__ == "__main__":
     app.run(port=5000)
