@@ -6,12 +6,15 @@ next_id = 1
 
 
 @app.route("/")
-@app.route("/")
 def index():
     q = request.args.get("q", "").strip().lower()
-    shown = [i for i in items if q in i["name"].lower()] if q else items
-    return render_template("index.html", items=shown, q=q)
-
+    kind = request.args.get("kind", "")
+    shown = [
+        i for i in items
+        if (not q or q in i["name"].lower())
+        and (not kind or i["kind"] == kind)
+    ]
+    return render_template("index.html", items=shown, q=q, kind=kind)
 
 @app.route("/add", methods=["POST"])
 def add():

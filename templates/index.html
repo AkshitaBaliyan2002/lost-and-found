@@ -15,7 +15,12 @@
   <hr>
       <form method="get" action="/">
         <input id="q" name="q" placeholder="Search by name" value="{{ q }}">
-        <button type="submit">Search</button>
+              <select id="filter-kind" name="kind">
+        <option value="">All</option>
+        <option value="Lost" {% if kind == "Lost" %}selected{% endif %}>Lost</option>
+        <option value="Found" {% if kind == "Found" %}selected{% endif %}>Found</option>
+      </select>
+      <button type="submit">Search</button>
     </form>
   <ul id="item-list">
     {% for i in items %}
