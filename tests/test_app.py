@@ -63,3 +63,12 @@ def test_empty_place_has_no_dash():
     r = client.post("/add", data={"name": "Hat", "place": "", "kind": "Lost"},
                     follow_redirects=True)
     assert b"Hat - " not in r.data
+
+
+def test_edit_item():
+    client = app.test_client()
+    client.post("/add", data={"name": "Umbrella", "place": "Library", "kind": "Lost"})
+    item_id = app_module.items[0]["id"]
+    client.post(f"/edit/{item_id}", data={"name": "Red Umbrella", "place": "Canteen"})
+    assert app_module.items[0]["name"] == "Red Umbrella"
+    assert app_module.items[0]["place"] == "Canteen"
